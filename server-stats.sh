@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cpu=$(top -bn5 | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1 "%"}')
+cpu=$(top -bn1 | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1 "%"}')
 echo "CPU Usage: $cpu"
