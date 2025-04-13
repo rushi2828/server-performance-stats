@@ -30,7 +30,8 @@ echo "Free/Available  : $available_memory_mb MB ($free_memory_percent%)"
 df_output=$(df -h /)
 
 size_disk=$(echo "$df_output" | awk 'NR==2 {printf $2}')
-available_disk=$(echo "$df_output" | awk 'NR==2 {printf $4}')
+read used_disk available_disk <<< $(echo "$df_output" | awk 'NR==2 {printf $3, $4}')
 
 echo "Disk Size : $size_disk"
+echo "Used Disk Space: $used_disk"
 echo "Available Disk Space: $available_disk"
