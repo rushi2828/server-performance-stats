@@ -42,5 +42,5 @@ used_disk_percent=$(echo "scale=2; $used_disk_kb *100/$size_disk_kb" | bc)
 available_disk_percent=$(echo "scale=2; $available_disk_kb *100/$size_disk_kb" | bc)
 
 echo "Disk Size : $size_disk"
-echo "Used Disk Space: $used_disk"
-echo "Available Disk Space: $available_disk"
+echo "Used Disk Space: $used_disk ($used_disk_percent%)"
+echo "Available Disk Space: $available_disk ($available_disk_percent)"
