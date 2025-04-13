@@ -1,9 +1,14 @@
 #!/bin/bash
 
+# CPU 
+
 top_output=$(top -bn1)
 
 cpu=$( echo "$top_output" | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1 "%"}')
 echo "CPU Usage: $cpu"
+
+# Memory
+# Read memory from file
 
 read total available <<< $(awk '/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {print t, a}' /proc/meminfo)
 
