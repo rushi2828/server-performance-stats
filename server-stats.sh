@@ -29,6 +29,6 @@ echo "Free/Available  : $available_memory_mb MB ($free_memory_percent%)"
 
 df_output=$(df -h /)
 
-size_disk=$(df_output | awk 'NR==2 {printf $2}')
+size_disk=$(echo "$df_output" | awk 'NR==2 {printf $2}')
 
 echo "Size : $size_disk"
