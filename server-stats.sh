@@ -25,6 +25,9 @@ echo "Total Memory    : $total_memory_mb MB"
 echo "Used Memory     : $used_mb MB ($used_memory_percent%)"
 echo "Free/Available  : $available_memory_mb MB ($free_memory_percent%)"
 
+
+echo "****************************************************************************************************************"
+
 # Disk
 
 df_output=$(df -h /)
