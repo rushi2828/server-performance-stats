@@ -58,8 +58,8 @@ top_5_processes_by_cpu=$(ps aux --sort -%cpu | head -6)
 top_5_processes_by_memory=$(ps aux --sort -%mem | head -6)
 
 echo "TOP 5 processes consuming CPU:"
-echo "\n"
-echo $"top_5_processes_by_cpu"
-echo "TOP 5 processes consuming Memory: 
 printf "\n"
-echo $"top_5_processes_by_memory"
+echo "$top_5_processes_by_cpu"
+echo "TOP 5 processes consuming Memory:" 
+printf "\n"
+echo "$top_5_processes_by_memory"
