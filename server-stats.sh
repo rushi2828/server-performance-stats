@@ -49,3 +49,11 @@ available_disk_percent=$(echo "scale=2; $available_disk_kb *100/$size_disk_kb" |
 echo "Disk Size : $size_disk"
 echo "Used Disk Space: $used_disk ($used_disk_percent%)"
 echo "Available Disk Space: $available_disk ($available_disk_percent)"
+
+echo "***************************************************************************************"
+
+# Top Processes by CPU and Memory
+
+top_5_processes_by_cpu=$(ps aux --sort -%cpu | head -6)
+top_5_processes_by_memory=$(ps aux --sort -%mem | head -6)
+
