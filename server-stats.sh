@@ -44,27 +44,23 @@ printf "Total Memory    : ${YELLOW}%-10s MB${RESET}\n" "$total_memory_mb"
 printf "Used Memory     : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$used_memory_mb" "$used_memory_percent"
 printf "Free/Available  : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$available_memory_mb" "$free_memory_percent"
 
-# Disk
+# ------------------------ Disk Usage ------------------------
 
 df_output=$(df -h /)
-
 size_disk=$(echo "$df_output" | awk 'NR==2 {printf $2}')
-
 # Dont use printf in below line, it doesnt add space
 read used_disk available_disk <<< $(echo "$df_output" | awk 'NR==2 {print $3, $4}')
 
 df_output_raw=$(df /)
-
 read size_disk_kb used_disk_kb available_disk_kb <<< $(echo "$df_output_raw" | awk 'NR==2 {print $2, $3, $4}')
 
 used_disk_percent=$(echo "scale=2; $used_disk_kb *100/$size_disk_kb" | bc)
 available_disk_percent=$(echo "scale=2; $available_disk_kb *100/$size_disk_kb" | bc)
 
-echo "Disk Size : $size_disk"
-echo "Used Disk Space: $used_disk ($used_disk_percent%)"
-echo "Available Disk Space: $available_disk ($available_disk_percent)"
-
-echo "***************************************************************************************"
+print_header "💾 Disk Usage"
+printf "Disk Size       : ${YELLOW}%-10s${RESET}\n" "$size_disk"
+printf "Used Space      : ${YELLOW}%-10s${RESET} (%s%%)\n" "$used_disk" "$used_percent"
+printf "Available Space : ${YELLOW}%-10s${RESET} (%s%%)\n" "$available_disk" "$avail_percent"
 
 # Top Processes by CPU and Memory
 
