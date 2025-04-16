@@ -40,7 +40,7 @@ used_memory_mb=$(awk -v u=$used_memory 'BEGIN { printf("%.1f", u/1024) }')
 available_memory_mb=$(awk -v a=$available_memory 'BEGIN { printf("%.1f", a/1024) }')
 
 print_header "🧠 Memory Usage"
-printf "Total Memory    : ${YELLOW}%-10s MB${RESET}\n" "$total_mmemory_b"
+printf "Total Memory    : ${YELLOW}%-10s MB${RESET}\n" "$total_memory_b"
 printf "Used Memory     : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$used_memory_mb" "$used_memory_percent"
 printf "Free/Available  : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$available_memory_mb" "$free_memory_percent"
 
