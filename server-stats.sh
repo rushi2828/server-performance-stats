@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Colors
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[1;36m'
+RESET='\033[0m'
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
+
 # CPU 
 # Get Top Output 
 
