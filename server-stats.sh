@@ -26,28 +26,23 @@ print_header "🖥️  CPU Usage"
 echo -e "Usage         : ${GREEN}${cpu_usage}%${RESET}"
 
 
-echo "***************************************************************************************"
-
-# Memory
-# Read memory from file
+# ------------------------ Memory Usage ------------------------
 
 read total_memory available_memory <<< $(awk '/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {print t, a}' /proc/meminfo)
-
 used_memory=$((total_memory - available_memory))
+
 used_memory_percent=$(awk -v u=$used_memory -v t=$total_memory 'BEGIN { printf("%.1f", (u / t) * 100) }')
 free_memory_percent=$(awk -v a=$available_memory -v t=$total_memory 'BEGIN { printf("%.1f", (a / t) * 100) }')
 
 # Convert from kB to MB 
 total_memory_mb=$(awk -v t=$total_memory 'BEGIN { printf("%.1f", t/1024) }')
-used_mb=$(awk -v u=$used_memory 'BEGIN { printf("%.1f", u/1024) }')
+used_memory_mb=$(awk -v u=$used_memory 'BEGIN { printf("%.1f", u/1024) }')
 available_memory_mb=$(awk -v a=$available_memory 'BEGIN { printf("%.1f", a/1024) }')
 
-echo "Total Memory    : $total_memory_mb MB"
-echo "Used Memory     : $used_mb MB ($used_memory_percent%)"
-echo "Free/Available  : $available_memory_mb MB ($free_memory_percent%)"
-
-
-echo "***************************************************************************************"
+print_header "🧠 Memory Usage"
+printf "Total Memory    : ${YELLOW}%-10s MB${RESET}\n" "$total_mmemory_b"
+printf "Used Memory     : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$used_memory_mb" "$used_memory_percent"
+printf "Free/Available  : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$available_memory_mb" "$free_memory_percent"
 
 # Disk
 
