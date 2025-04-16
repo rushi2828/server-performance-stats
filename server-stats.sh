@@ -44,6 +44,7 @@ printf "Total Memory    : ${YELLOW}%-10s MB${RESET}\n" "$total_memory_mb"
 printf "Used Memory     : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$used_memory_mb" "$used_memory_percent"
 printf "Free/Available  : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$available_memory_mb" "$free_memory_percent"
 
+
 # ------------------------ Disk Usage ------------------------
 
 df_output=$(df -h /)
@@ -62,17 +63,24 @@ printf "Disk Size       : ${YELLOW}%-10s${RESET}\n" "$size_disk"
 printf "Used Space      : ${YELLOW}%-10s${RESET} (%s%%)\n" "$used_disk" "$used_percent"
 printf "Available Space : ${YELLOW}%-10s${RESET} (%s%%)\n" "$available_disk" "$avail_percent"
 
-# Top Processes by CPU and Memory
 
-top_5_processes_by_cpu=$(ps aux --sort -%cpu | head -6)
-top_5_processes_by_memory=$(ps aux --sort -%mem | head -6)
+# ------------------------ Top Processes ------------------------
 
-echo "TOP 5 processes consuming CPU:"
-printf "\n"
-echo "$top_5_processes_by_cpu"
+print_header "🔥 Top 5 Processes by CPU"
+ps aux --sort=-%cpu | awk 'NR==1 || NR<=6 { printf "%-10s %-6s %-5s %-5s %s\n", $1, $2, $3, $4, $11 }'
 
-echo "***************************************************************************************"
+print_header "🧠 Top 5 Processes by Memory"
+ps aux --sort=-%mem | awk 'NR==1 || NR<=6 { printf "%-10s %-6s %-5s %-5s %s\n", $1, $2, $3, $4, $11 }'
 
-echo "TOP 5 processes consuming Memory:" 
-printf "\n"
-echo "$top_5_processes_by_memory"
+# top_5_processes_by_cpu=$(ps aux --sort -%cpu | head -6)
+# top_5_processes_by_memory=$(ps aux --sort -%mem | head -6)
+
+# echo "TOP 5 processes consuming CPU:"
+# printf "\n"
+# echo "$top_5_processes_by_cpu"
+
+# echo "***************************************************************************************"
+
+# echo "TOP 5 processes consuming Memory:" 
+# printf "\n"
+# echo "$top_5_processes_by_memory"
