@@ -8,6 +8,13 @@ RESET='\033[0m'
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 
+separator="================================================================================"
+
+print_header() {
+    echo -e "\n${CYAN}${BOLD}$1${RESET}"
+    echo "$separator"
+}
+
 # CPU 
 # Get Top Output 
 
