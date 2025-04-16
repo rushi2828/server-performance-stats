@@ -25,6 +25,8 @@
 
 - 📌 **Top Processes** - Fetches the top 5 processes sorted by: CPU and Memory, through ps aux.
 
+---
+
 ## 🚀 Usage
 
 Make the script executable:
@@ -38,6 +40,8 @@ Run the script:
 ./server-stats.sh
 ```
 
+---
+
 ## 📦 Dependencies
 This script uses standard Linux tools:
 - top
@@ -49,3 +53,5 @@ This script uses standard Linux tools:
 - df
 
 No external packages required.
+
+---
