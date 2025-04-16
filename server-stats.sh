@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # CPU 
+# Get Top Output 
 
 top_output=$(top -bn1)
 
-cpu=$( echo "$top_output" | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1 "%"}')
+cpu=$(echo "$top_output" | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1 "%"}')
 echo "CPU Usage: $cpu"
 
 echo "***************************************************************************************"
@@ -14,7 +15,7 @@ echo "**************************************************************************
 
 read total_memory available_memory <<< $(awk '/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {print t, a}' /proc/meminfo)
 
-used_memory=$((total_memory - available_memory))
+used_memory=$(total_memory - available_memory)
 used_memory_percent=$(awk -v u=$used_memory -v t=$total_memory 'BEGIN { printf("%.1f", (u / t) * 100) }')
 free_memory_percent=$(awk -v a=$available_memory -v t=$total_memory 'BEGIN { printf("%.1f", (a / t) * 100) }')
 
