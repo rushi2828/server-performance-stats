@@ -55,3 +55,15 @@ This script uses standard Linux tools:
 No external packages required.
 
 ---
+
+## 🧪 Pro Tip
+
+To monitor performance at intervals, set up a cron job like:
+
+```
+*/5* ** * /path/to/server-stats.sh >> /path/to/log.txt
+```
+
+## Feel free to customize or extend the script as needed!
+
+Let me know if you want to include a table of contents, or sample screenshots!
