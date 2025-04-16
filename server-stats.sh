@@ -15,13 +15,16 @@ print_header() {
     echo "$separator"
 }
 
-# CPU 
-# Get Top Output 
+# ------------------------ CPU Usage ------------------------
 
 top_output=$(top -bn1)
 
-cpu=$(echo "$top_output" | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1 "%"}')
-echo "CPU Usage: $cpu"
+cpu_idle=$(echo "$top_output" | grep "Cpu(s)" | sed 's/.*, *\([0-9.]*\)%* id.*/\1/')
+cpu_usage=$(awk -v idle="$cpu_idle" 'BEGIN { printf("%.1f", 100 - idle) }')
+
+print_header "🖥️  CPU Usage"
+echo -e "Usage         : ${GREEN}${cpu_usage}%${RESET}"
+
 
 echo "***************************************************************************************"
 
