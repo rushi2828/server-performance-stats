@@ -15,6 +15,14 @@ print_header() {
     echo "$separator"
 }
 
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    echo "$NAME $VERSION"
+else
+    uname -a
+fi
+
+
 # ------------------------ CPU Usage ------------------------
 
 top_output=$(top -bn1)
