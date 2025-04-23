@@ -60,7 +60,7 @@ if command -v bc &> /dev/null; then
   available_disk_percent=$(echo "scale=2; $available_disk_kb * 100 / $size_disk_kb" | bc)
 else
   used_disk_percent=$(( used_disk_kb * 100 / size_disk_kb ))
-  available_disk_percent=$((available_disk_kb * 100 / size_disk_kb)
+  available_disk_percent=$((available_disk_kb * 100 / size_disk_kb))
 fi
 
 
