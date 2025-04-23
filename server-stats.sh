@@ -55,8 +55,15 @@ read used_disk available_disk <<< $(echo "$df_output" | awk 'NR==2 {print $3, $4
 df_output_raw=$(df /)
 read size_disk_kb used_disk_kb available_disk_kb <<< $(echo "$df_output_raw" | awk 'NR==2 {print $2, $3, $4}')
 
-used_disk_percent=$(echo "scale=2; $used_disk_kb *100/$size_disk_kb" | bc)
-available_disk_percent=$(echo "scale=2; $available_disk_kb *100/$size_disk_kb" | bc)
+if command -v bc &> /dev/null; then
+  used_disk_percent=$(echo "scale=2; $used_disk_kb * 100 / $size_disk_kb" | bc)
+  available_disk_percent=$(echo "scale=2; $available_disk_kb * 100 / $size_disk_kb" | bc)
+else
+  used_disk_percent=$(( used_disk_kb * 100 / size_disk_kb ))
+  available_disk_percent=$((available_disk_kb * 100 / size_disk_kb)
+fi
+
+
 
 print_header "💾 Disk Usage"
 printf "Disk Size       : ${YELLOW}%-10s${RESET}\n" "$size_disk"
