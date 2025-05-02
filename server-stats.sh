@@ -32,6 +32,7 @@ fi
 read system_uptime idle_time < /proc/uptime
 
 total_seconds=${system_uptime%.*}
+fractional_part=${system_uptime#*.}
 
 days=$((total_seconds / 86400 ))
 hours=$(((total_seconds % 86400) / 3600 ))
@@ -39,7 +40,13 @@ minutes=$(((total_seconds % 3600) / 60 ))
 seconds=$(((total_seconds % 60) / 60 ))
 
 print_header "CPU Uptime"
-echo "$days days, $hours hours, $minutes minutes, $seconds seconds"
+# echo "$days days, $hours hours, $minutes minutes, $seconds seconds"
+
+# Print only non-zero units
+[[ $days -gt 0 ]] && echo "$days days"
+[[ $hours -gt 0 ]] && echo "$hours hours"
+[[ $minutes -gt 0 ]] && echo "$minutes minutes"
+[[ $seconds -gt 0 || $fractional_part -ne 0 ]] && echo "$seconds.${fractional_part} seconds"
 
 
 # ------------------------ CPU Usage ------------------------
