@@ -15,6 +15,40 @@ print_header() {
     echo "$separator"
 }
 
+# ------------------------ OS Info ------------------------
+
+print_header "OS Info"
+
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    echo -e "${GREEN}${NAME} ${VERSION}${RESET}"
+else
+    uname -a
+fi
+
+# ------------------------ CPU Uptime ------------------------
+
+# read system_uptime idle_time <<< "$(cat /proc/uptime)"
+read system_uptime idle_time < /proc/uptime
+
+total_seconds=${system_uptime%.*}
+fractional_part=${system_uptime#*.}
+
+days=$((total_seconds / 86400 ))
+hours=$(((total_seconds % 86400) / 3600 ))
+minutes=$(((total_seconds % 3600) / 60 ))
+seconds=$((total_seconds % 60 ))
+
+print_header "CPU Uptime"
+# echo "$days days, $hours hours, $minutes minutes, $seconds seconds"
+
+# Print only non-zero units
+[[ $days -gt 0 ]] && echo "$days days"
+[[ $hours -gt 0 ]] && echo "$hours hours"
+[[ $minutes -gt 0 ]] && echo "$minutes minutes"
+[[ $seconds -gt 0 || $fractional_part -ne 0 ]] && echo "$seconds.${fractional_part} seconds"
+
+
 # ------------------------ CPU Usage ------------------------
 
 top_output=$(top -bn1)
@@ -55,13 +89,20 @@ read used_disk available_disk <<< $(echo "$df_output" | awk 'NR==2 {print $3, $4
 df_output_raw=$(df /)
 read size_disk_kb used_disk_kb available_disk_kb <<< $(echo "$df_output_raw" | awk 'NR==2 {print $2, $3, $4}')
 
-used_disk_percent=$(echo "scale=2; $used_disk_kb *100/$size_disk_kb" | bc)
-available_disk_percent=$(echo "scale=2; $available_disk_kb *100/$size_disk_kb" | bc)
+if command -v bc &> /dev/null; then
+  used_disk_percent=$(echo "scale=2; $used_disk_kb * 100 / $size_disk_kb" | bc)
+  available_disk_percent=$(echo "scale=2; $available_disk_kb * 100 / $size_disk_kb" | bc)
+else
+  used_disk_percent=$(( used_disk_kb * 100 / size_disk_kb ))
+  available_disk_percent=$((available_disk_kb * 100 / size_disk_kb))
+fi
+
+
 
 print_header "💾 Disk Usage"
 printf "Disk Size       : ${YELLOW}%-10s${RESET}\n" "$size_disk"
-printf "Used Space      : ${YELLOW}%-10s${RESET} (%s%%)\n" "$used_disk" "$used_percent"
-printf "Available Space : ${YELLOW}%-10s${RESET} (%s%%)\n" "$available_disk" "$avail_percent"
+printf "Used Space      : ${YELLOW}%-10s${RESET} (%s%%)\n" "$used_disk" "$used_disk_percent"
+printf "Available Space : ${YELLOW}%-10s${RESET} (%s%%)\n" "$available_disk" "$available_disk_percent"
 
 
 # ------------------------ Top Processes ------------------------
