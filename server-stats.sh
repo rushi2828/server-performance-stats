@@ -37,7 +37,7 @@ fractional_part=${system_uptime#*.}
 days=$((total_seconds / 86400 ))
 hours=$(((total_seconds % 86400) / 3600 ))
 minutes=$(((total_seconds % 3600) / 60 ))
-seconds=$(((total_seconds % 60) / 60 ))
+seconds=$((total_seconds % 60 ))
 
 print_header "CPU Uptime"
 # echo "$days days, $hours hours, $minutes minutes, $seconds seconds"
