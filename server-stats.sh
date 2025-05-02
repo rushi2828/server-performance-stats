@@ -15,6 +15,10 @@ print_header() {
     echo "$separator"
 }
 
+# ------------------------ OS Info ------------------------
+
+print_header "OS Info"
+
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     echo "$NAME $VERSION"
