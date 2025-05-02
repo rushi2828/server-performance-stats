@@ -28,7 +28,8 @@ fi
 
 # ------------------------ CPU Uptime ------------------------
 
-read system_uptime idle_time <<< "/proc/uptime"
+# read system_uptime idle_time <<< "$(cat /proc/uptime)"
+read system_uptime idle_time < /proc/uptime
 
 total_seconds=${system_uptime%.*}
 
