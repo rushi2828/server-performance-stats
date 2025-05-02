@@ -26,6 +26,20 @@ else
     uname -a
 fi
 
+# ------------------------ CPU Uptime ------------------------
+
+read system_uptime idle_time <<< "/proc/uptime"
+
+total_seconds=${system_uptime%.*}
+
+days=$((total_seconds / 86400 ))
+hours=$(((total_seconds % 86400) / 3600 ))
+minutes=$(((total_seconds % 3600) / 60 ))
+seconds=$(((total_seconds % 60) / 60 ))
+
+echo "$input_seconds seconds is:"
+echo "$days days, $hours hours, $minutes minutes, $seconds seconds"
+
 
 # ------------------------ CPU Usage ------------------------
 
