@@ -21,7 +21,7 @@ print_header "OS Info"
 
 if [ -f /etc/os-release ]; then
     . /etc/os-release
-    echo "$NAME $VERSION"
+    echo "${GREEN} $NAME $VERSION"
 else
     uname -a
 fi
