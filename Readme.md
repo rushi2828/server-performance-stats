@@ -39,6 +39,7 @@ Run the script:
 ```
 ./server-stats.sh
 ```
+![image](https://github.com/user-attachments/assets/9f9e5cf2-ea3f-41d0-8595-80921d240a11)
 
 ---
 
